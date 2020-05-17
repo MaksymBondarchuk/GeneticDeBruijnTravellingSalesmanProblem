@@ -6,7 +6,7 @@ namespace GeneticAlgorithm
 {
     internal static class Program
     {
-        private const int ChromosomesNumber = 4;
+        private const int ChromosomesNumber = 10;
         private const int Dimensions = 4;
 
         private static void Main()
@@ -27,8 +27,9 @@ namespace GeneticAlgorithm
 
             var fitnessFunction = new Func<Chromosome, double>(c =>
             {
-                double div = c.X[0] + 2 * c.X[1] + 3 * c.X[2] + 4 * c.X[0] - 30;
-                return Math.Abs(div) < 0.01 ? double.MaxValue : 1 / div;
+                double div = Math.Abs(c.X[0] + 2 * c.X[1] + 3 * c.X[2] + 4 * c.X[3] - 30);
+                return div;
+                // return Math.Abs(div) < 0.01 ? double.MaxValue : 1 / div;
                 // double sum = c.X.Sum(x => x * x);
                 // return Math.Abs(sum) < 0.000001 ? double.MaxValue : 1 / (double) sum;
             });
@@ -62,6 +63,7 @@ namespace GeneticAlgorithm
             );
 
             Console.WriteLine(result);
+            Console.WriteLine(fitnessFunction(result));
             // Console.WriteLine(fitnessFunction(result));
             // foreach (double d in result.X)
             // {

@@ -10,7 +10,7 @@ namespace GeneticAlgorithm.Models
     {
         public double FitnessValue { get; set; }
         
-        public List<double> X { get; set; } = new List<double>();
+        public List<int> X { get; set; } = new List<int>();
 
         public void EnsureBoundaries()
         {
@@ -29,9 +29,9 @@ namespace GeneticAlgorithm.Models
         {
             var sb = new StringBuilder();
             sb.Append($"{FitnessValue}");
-            foreach (double d in X)
+            foreach (int d in X)
             {
-                sb.Append($"{d,12:0.0000}");
+                sb.Append($"{d,12}");
             }
             return sb.ToString();
             // return $"{FitnessValue:0.0000}: {string.Join(' ', X.Select(x => x.ToString("0.0000")))}";

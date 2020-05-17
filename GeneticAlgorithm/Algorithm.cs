@@ -62,7 +62,10 @@ namespace GeneticAlgorithm
                 {
                     chromosome.EnsureBoundaries();
                 }
-                chromosomes = nextGeneration;
+
+                chromosomes = chromosomes.OrderByDescending(c => c.FitnessValue).ToList();
+                chromosomes[0] = nextGeneration.First();
+                // chromosomes = nextGeneration;
 
                 #endregion
 
@@ -79,7 +82,9 @@ namespace GeneticAlgorithm
                 #endregion
             }
 
-            return chromosomes.OrderBy(p => p.FitnessValue).Last();
+            var best = chromosomes.OrderBy(p => p.FitnessValue).First();
+            best.FitnessValue = fitnessFunction(best);
+            return best;
         }
 
         private List<TChromosome> GenerateParents(List<TChromosome> chromosomes)
@@ -97,7 +102,7 @@ namespace GeneticAlgorithm
                     }
                 }
 
-                parents.Add(tournamentParticipants.OrderBy(p => p.FitnessValue).Last());
+                parents.Add(tournamentParticipants.OrderBy(p => p.FitnessValue).First());
             }
 
             return parents;
