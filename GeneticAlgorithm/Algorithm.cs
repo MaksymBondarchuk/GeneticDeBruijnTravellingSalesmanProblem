@@ -42,22 +42,6 @@ namespace GeneticAlgorithm
                 var nextGeneration = new List<TChromosome>(chromosomes.Count);
                 nextGeneration.AddRange(fathers.Select((t, i) => crossOverFunction(t, mothers[i])));
 
-                // // Tournament
-                // var nextGeneration = new List<TChromosome>(chromosomes.Count);
-                // foreach (TChromosome t in chromosomes)
-                // {
-                //     var tournamentParticipants = new List<TChromosome>(TournamentSize);
-                //     while (tournamentParticipants.Count != TournamentSize)
-                //     {
-                //         TChromosome randomParticipant = chromosomes[_random.Next(chromosomes.Count)];
-                //         if (tournamentParticipants.Contains(randomParticipant))
-                //         {
-                //             tournamentParticipants.Add(randomParticipant);
-                //         }
-                //     }
-                //     nextGeneration.Add(tournamentParticipants.OrderByDescending(p => p.FitnessValue).First());
-                // }
-
                 foreach (var chromosome in nextGeneration)
                 {
                     chromosome.EnsureBoundaries();
