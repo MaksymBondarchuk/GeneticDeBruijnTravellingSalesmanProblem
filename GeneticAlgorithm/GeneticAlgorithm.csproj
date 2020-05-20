@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\GeneticAlgorithm.Models\GeneticAlgorithm.Models.csproj" />
+    </ItemGroup>
+
 </Project>

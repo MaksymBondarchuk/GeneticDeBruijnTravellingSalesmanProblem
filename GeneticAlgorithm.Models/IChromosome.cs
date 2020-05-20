@@ -1,4 +1,4 @@
-﻿namespace GeneticAlgorithm.Interfaces
+﻿namespace GeneticAlgorithm.Models
 {
     public interface IChromosome
     {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using GeneticAlgorithm.Interfaces;
 
 namespace GeneticAlgorithm.Models
 {
