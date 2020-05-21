@@ -11,6 +11,8 @@ namespace GeneticAlgorithm
 
         private static void Main()
         {
+            #region Initialize
+
             var random = new Random();
             var chromosomes = new List<Chromosome>();
             for (var i = 0; i < ChromosomesNumber; i++)
@@ -24,6 +26,10 @@ namespace GeneticAlgorithm
 
                 chromosomes.Add(chromosome);
             }
+
+            #endregion
+
+            #region Functions
 
             var fitnessFunction = new Func<Chromosome, double>(c =>
             {
@@ -57,7 +63,9 @@ namespace GeneticAlgorithm
 
                 return child;
             });
-            
+
+            #endregion
+
             var algorithm = new Algorithm<Chromosome>();
             var result = algorithm.Run(chromosomes, fitnessFunction, crossOverFunction, mutationFunction);
 
