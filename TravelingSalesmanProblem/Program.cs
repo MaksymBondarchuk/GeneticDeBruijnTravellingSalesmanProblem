@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using GeneticAlgorithm.Models;
+using TravelingSalesmanProblem.Models;
 
-namespace GeneticAlgorithm
+namespace TravelingSalesmanProblem
 {
     internal static class Program
     {
@@ -33,33 +34,34 @@ namespace GeneticAlgorithm
                 // double sum = c.X.Sum(x => x * x);
                 // return Math.Abs(sum) < 0.000001 ? double.MaxValue : 1 / (double) sum;
             });
-            var mutationFunction = new Func<Chromosome, Chromosome>(c =>
-            {
-                int value = random.Next(5) * (random.Next(2) - 2);
-                c.X[random.Next(c.X.Count)] += value;
-                // c.X[random.Next(c.X.Count)] = random.Next();
-                return c;
-            });
-            var crossOverFunction = new Func<Chromosome, Chromosome, Chromosome>((father, mother) =>
-            {
-                var child = new Chromosome();
-
-                int crossOverPoint = random.Next(father.X.Count);
-                for (var i = 0; i < crossOverPoint; i++)
-                {
-                    child.X.Add(father.X[i]);
-                }
-
-                for (int i = crossOverPoint; i < father.X.Count; i++)
-                {
-                    child.X.Add(mother.X[i]);
-                }
-
-                return child;
-            });
-            
             var algorithm = new Algorithm<Chromosome>();
-            var result = algorithm.Run(chromosomes, fitnessFunction, crossOverFunction, mutationFunction);
+            var result = algorithm.Run(chromosomes, fitnessFunction,
+                (father, mother) =>
+                {
+                    var child = new Chromosome();
+
+                    int crossOverPoint = random.Next(father.X.Count);
+                    for (var i = 0; i < crossOverPoint; i++)
+                    {
+                        child.X.Add(father.X[i]);
+                    }
+
+                    for (int i = crossOverPoint; i < father.X.Count; i++)
+                    {
+                        child.X.Add(mother.X[i]);
+                    }
+
+                    return child;
+                },
+                c =>
+                {
+                    int value = random.Next(5) * (random.Next(2) - 2);
+                    // int idx = random.Next(c.X.Count);
+                    c.X[random.Next(c.X.Count)] += value;
+                    // c.X[random.Next(c.X.Count)] = random.Next();
+                    return c;
+                }
+            );
 
             Console.WriteLine(result);
             Console.WriteLine(fitnessFunction(result));

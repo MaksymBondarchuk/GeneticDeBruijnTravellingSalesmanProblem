@@ -33,7 +33,6 @@ namespace GeneticAlgorithm.Models
                 sb.Append($"{d,12}");
             }
             return sb.ToString();
-            // return $"{FitnessValue:0.0000}: {string.Join(' ', X.Select(x => x.ToString("0.0000")))}";
         }
     }
 }
