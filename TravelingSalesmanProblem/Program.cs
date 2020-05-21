@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using TravelingSalesmanProblem.Models;
 
 namespace TravelingSalesmanProblem
@@ -19,17 +18,15 @@ namespace TravelingSalesmanProblem
             for (var i = 0; i < ChromosomesNumber; i++)
             {
                 var chromosome = new Chromosome();
-                for (var e = 0; e < graph.Edges.Count; e++)
+                foreach (List<int> _ in graph.Edges)
                 {
-                    int vertex = random.Next(graph.Edges.Count);
-                    while (chromosome.)
+                    int vertex;
+                    do
                     {
-                        
-                    }
-                    chromosome.Vertices.Add(random.Next(30));
-                    // chromosome.X.Add(-100 + 200 * random.NextDouble());
+                        vertex = random.Next(graph.Edges.Count);
+                    } while (chromosome.Vertices.Contains(vertex));
+                    chromosome.Vertices.Add(vertex);
                 }
-
                 chromosomes.Add(chromosome);
             }
 
