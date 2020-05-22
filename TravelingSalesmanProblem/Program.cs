@@ -88,7 +88,6 @@ namespace TravelingSalesmanProblem
             var result = algorithm.Run(chromosomes, fitnessFunction, crossOverFunction, mutationFunction);
 
             Console.WriteLine(result);
-            Console.WriteLine(fitnessFunction(result));
         }
     }
 }

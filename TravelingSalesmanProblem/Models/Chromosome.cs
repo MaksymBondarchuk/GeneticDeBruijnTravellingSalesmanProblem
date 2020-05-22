@@ -21,10 +21,10 @@ namespace TravelingSalesmanProblem.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append($"{FitnessValue}");
+            sb.Append($"Fitness = {FitnessValue}:");
             foreach (int d in Vertices)
             {
-                sb.Append($"{d,12}");
+                sb.Append($"{d,3}");
             }
 
             return sb.ToString();
