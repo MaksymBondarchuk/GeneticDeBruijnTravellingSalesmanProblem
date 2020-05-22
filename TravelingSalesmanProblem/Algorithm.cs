@@ -19,7 +19,7 @@ namespace TravelingSalesmanProblem
             Func<TChromosome, TChromosome, TChromosome> crossOverFunction,
             Func<TChromosome, TChromosome> mutationFunction)
         {
-            for (var iter = 0; iter < 100; iter++)
+            for (var iter = 0; iter < 1000; iter++)
             {
                 #region Fitness
 
@@ -66,9 +66,18 @@ namespace TravelingSalesmanProblem
                 #endregion
             }
 
+            #region Best
+
+            foreach (TChromosome chromosome in chromosomes)
+            {
+                chromosome.FitnessValue = fitnessFunction(chromosome);
+            }
+
             var best = chromosomes.OrderBy(p => p.FitnessValue).First();
             best.FitnessValue = fitnessFunction(best);
             return best;
+
+            #endregion
         }
 
         private List<TChromosome> GenerateParents(List<TChromosome> chromosomes)

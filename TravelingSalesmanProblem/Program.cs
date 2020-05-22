@@ -25,8 +25,10 @@ namespace TravelingSalesmanProblem
                     {
                         vertex = random.Next(graph.Edges.Count);
                     } while (chromosome.Vertices.Contains(vertex));
+
                     chromosome.Vertices.Add(vertex);
                 }
+
                 chromosomes.Add(chromosome);
             }
 
@@ -36,35 +38,47 @@ namespace TravelingSalesmanProblem
 
             var fitnessFunction = new Func<Chromosome, double>(c =>
             {
-                double div = Math.Abs(c.X[0] + 2 * c.X[1] + 3 * c.X[2] + 4 * c.X[3] - 30);
-                return div;
-                // return Math.Abs(div) < 0.01 ? double.MaxValue : 1 / div;
-                // double sum = c.X.Sum(x => x * x);
-                // return Math.Abs(sum) < 0.000001 ? double.MaxValue : 1 / (double) sum;
-            });
-            var mutationFunction = new Func<Chromosome, Chromosome>(c =>
-            {
-                int value = random.Next(5) * (random.Next(2) - 2);
-                c.X[random.Next(c.X.Count)] += value;
-                // c.X[random.Next(c.X.Count)] = random.Next();
-                return c;
+                var sum = 0;
+                for (var i = 0; i < c.Vertices.Count - 1; i++)
+                {
+                    sum += graph.Edges[c.Vertices[i]][c.Vertices[i + 1]];
+                }
+                return sum;
             });
             var crossOverFunction = new Func<Chromosome, Chromosome, Chromosome>((father, mother) =>
             {
                 var child = new Chromosome();
 
-                int crossOverPoint = random.Next(father.X.Count);
+                int crossOverPoint = random.Next(father.Vertices.Count);
+
+                var usedVertices = new List<int>();
+                for (int i = crossOverPoint; i < father.Vertices.Count; i++)
+                {
+                    usedVertices.Add(father.Vertices[i]);
+                    child.Vertices.Add(father.Vertices[i]);
+                }
+                
+                var motherIdx = 0;
                 for (var i = 0; i < crossOverPoint; i++)
                 {
-                    child.X.Add(father.X[i]);
-                }
-
-                for (int i = crossOverPoint; i < father.X.Count; i++)
-                {
-                    child.X.Add(mother.X[i]);
+                    while (usedVertices.Contains(motherIdx))
+                    {
+                        motherIdx++;
+                    }
+                    child.Vertices.Add(mother.Vertices[i]);
+                    motherIdx++;
                 }
 
                 return child;
+            });
+            var mutationFunction = new Func<Chromosome, Chromosome>(c =>
+            {
+                int idx1 = random.Next(c.Vertices.Count);
+                int idx2 = random.Next(c.Vertices.Count);
+                int tmp = c.Vertices[idx1];
+                c.Vertices[idx1] = c.Vertices[idx2];
+                c.Vertices[idx2] = tmp; 
+                return c;
             });
 
             #endregion
