@@ -8,7 +8,7 @@ namespace GeneticAlgorithm
     public class Algorithm<TChromosome>
         where TChromosome : class, IChromosome
     {
-        private const int NoChangesIterationsToStop = 2;
+        private const int NoChangesIterationsToStop = 100;
         private const int TournamentSize = 2;
         private const double MutationsFraction = 0.1;
 
@@ -21,8 +21,9 @@ namespace GeneticAlgorithm
             Func<TChromosome, TChromosome> mutationFunction)
         {
             var stopCounter = 0;
-            var lastAverageFitness = double.MaxValue;
-         
+            var lastBestFitness = double.MaxValue;
+            TChromosome best;
+            
             var iter = 0;
             while (iter < 100000 && stopCounter < NoChangesIterationsToStop)
             {
@@ -67,7 +68,14 @@ namespace GeneticAlgorithm
 
                 #region Stop Criteria
 
-                if (Math.Abs(lastAverageFitness - avg) < 0.00000001)
+                foreach (TChromosome chromosome in chromosomes)
+                {
+                    chromosome.FitnessValue = fitnessFunction(chromosome);
+                }
+                
+                best = chromosomes.OrderBy(p => p.FitnessValue).First();
+                
+                if (Math.Abs(lastBestFitness - best.FitnessValue) < 0.00000001)
                 {
                     stopCounter++;
                 }
@@ -75,25 +83,18 @@ namespace GeneticAlgorithm
                 {
                     stopCounter = 0;
                 }
-                lastAverageFitness = avg;
+                
+                lastBestFitness = best.FitnessValue;
                 iter++;
 
                 #endregion
             }
 
-            var best = chromosomes.OrderBy(p => p.FitnessValue).First();
-            best.FitnessValue = fitnessFunction(best);
+            best = chromosomes.OrderBy(p => p.FitnessValue).First();
             return best;
         }
 
         #region Tournament
-
-        private List<TChromosome> GenerateParents(List<TChromosome> chromosomes)
-        {
-            var parents = new List<TChromosome>(chromosomes.Count);
-            parents.AddRange(chromosomes.Select(_ => GenerateParent(chromosomes)));
-            return parents;
-        }
 
         private TChromosome GenerateParent(List<TChromosome> chromosomes)
         {
