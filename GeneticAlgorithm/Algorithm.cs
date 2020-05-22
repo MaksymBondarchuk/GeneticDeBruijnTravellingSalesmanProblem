@@ -8,6 +8,7 @@ namespace GeneticAlgorithm
     public class Algorithm<TChromosome>
         where TChromosome : class, IChromosome
     {
+        private const int NoChangesIterationsToStop = 2;
         private const int TournamentSize = 2;
         private const double MutationsFraction = 0.1;
 
@@ -19,7 +20,11 @@ namespace GeneticAlgorithm
             Func<TChromosome, TChromosome, TChromosome> crossOverFunction,
             Func<TChromosome, TChromosome> mutationFunction)
         {
-            for (var iter = 0; iter < 100; iter++)
+            var stopCounter = 0;
+            var lastAverageFitness = double.MaxValue;
+         
+            var iter = 0;
+            while (iter < 100000 && stopCounter < NoChangesIterationsToStop)
             {
                 #region Fitness
 
@@ -37,19 +42,14 @@ namespace GeneticAlgorithm
 
                 #region Cross over
 
-                var fathers = GenerateParents(chromosomes);
-                var mothers = GenerateParents(chromosomes);
-                var nextGeneration = new List<TChromosome>(chromosomes.Count);
-                nextGeneration.AddRange(fathers.Select((t, i) => crossOverFunction(t, mothers[i])));
+                var father = GenerateParent(chromosomes);
+                var mother = GenerateParent(chromosomes);
 
-                foreach (var chromosome in nextGeneration)
-                {
-                    chromosome.EnsureBoundaries();
-                }
+                var child = crossOverFunction(father, mother);
+                child.EnsureBoundaries();
 
                 chromosomes = chromosomes.OrderByDescending(c => c.FitnessValue).ToList();
-                chromosomes[0] = nextGeneration.First();
-                // chromosomes = nextGeneration;
+                chromosomes[0] = child;
 
                 #endregion
 
@@ -64,6 +64,21 @@ namespace GeneticAlgorithm
                 }
 
                 #endregion
+
+                #region Stop Criteria
+
+                if (Math.Abs(lastAverageFitness - avg) < 0.00000001)
+                {
+                    stopCounter++;
+                }
+                else
+                {
+                    stopCounter = 0;
+                }
+                lastAverageFitness = avg;
+                iter++;
+
+                #endregion
             }
 
             var best = chromosomes.OrderBy(p => p.FitnessValue).First();
@@ -71,25 +86,31 @@ namespace GeneticAlgorithm
             return best;
         }
 
+        #region Tournament
+
         private List<TChromosome> GenerateParents(List<TChromosome> chromosomes)
         {
             var parents = new List<TChromosome>(chromosomes.Count);
-            foreach (TChromosome unused in chromosomes)
-            {
-                var tournamentParticipants = new List<TChromosome>(TournamentSize);
-                while (tournamentParticipants.Count != TournamentSize)
-                {
-                    TChromosome randomParticipant = chromosomes[_random.Next(chromosomes.Count)];
-                    if (!tournamentParticipants.Contains(randomParticipant))
-                    {
-                        tournamentParticipants.Add(randomParticipant);
-                    }
-                }
-
-                parents.Add(tournamentParticipants.OrderBy(p => p.FitnessValue).First());
-            }
-
+            parents.AddRange(chromosomes.Select(_ => GenerateParent(chromosomes)));
             return parents;
         }
+
+        private TChromosome GenerateParent(List<TChromosome> chromosomes)
+        {
+            var tournamentParticipants = new List<TChromosome>(TournamentSize);
+            while (tournamentParticipants.Count != TournamentSize)
+            {
+                TChromosome randomParticipant = chromosomes[_random.Next(chromosomes.Count)];
+                if (!tournamentParticipants.Contains(randomParticipant))
+                {
+                    tournamentParticipants.Add(randomParticipant);
+                }
+            }
+
+            return tournamentParticipants.OrderBy(p => p.FitnessValue).First();
+        }
+        
+        #endregion
+
     }
 }
