@@ -7,7 +7,7 @@ namespace TravelingSalesmanProblem
 {
     internal static class Program
     {
-        private const int ChromosomesNumber = 5;
+        private const int ChromosomesNumber = 100;
 
         private static void Main()
         {
@@ -45,34 +45,8 @@ namespace TravelingSalesmanProblem
                 {
                     sum += graph.Edges[c.Vertices[i]][c.Vertices[i + 1]];
                 }
+
                 return sum + graph.Edges[c.Vertices[^1]][0];
-            });
-            var crossOverFunction = new Func<Chromosome, Chromosome, Chromosome>((father, mother) =>
-            {
-                var child = new Chromosome();
-
-                int crossOverPoint = random.Next(father.Vertices.Count);
-
-                var usedVertices = new List<int>();
-                for (int i = crossOverPoint; i < father.Vertices.Count; i++)
-                {
-                    usedVertices.Add(father.Vertices[i]);
-                    child.Vertices.Add(father.Vertices[i]);
-                }
-                
-                // int motherIdx = mother.Vertices.Count - 1;
-                int motherIdx = 0;
-                for (var i = 0; i < crossOverPoint; i++)
-                {
-                    while (usedVertices.Contains(mother.Vertices[motherIdx]))
-                    {
-                        motherIdx++;
-                    }
-                    child.Vertices.Add(mother.Vertices[motherIdx]);
-                    motherIdx++;
-                }
-
-                return child;
             });
             var mutationFunction = new Func<Chromosome, Chromosome>(c =>
             {
@@ -80,14 +54,14 @@ namespace TravelingSalesmanProblem
                 int idx2 = random.Next(c.Vertices.Count);
                 int tmp = c.Vertices[idx1];
                 c.Vertices[idx1] = c.Vertices[idx2];
-                c.Vertices[idx2] = tmp; 
+                c.Vertices[idx2] = tmp;
                 return c;
             });
 
             #endregion
 
             var algorithm = new Algorithm<Chromosome>();
-            Chromosome result = algorithm.Run(chromosomes, fitnessFunction, crossOverFunction, mutationFunction);
+            Chromosome result = algorithm.Run(chromosomes, fitnessFunction, CrossOverFunction.Cycle, mutationFunction);
 
             Console.WriteLine(result);
         }

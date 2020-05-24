@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using GeneticAlgorithm.Models;
 
@@ -21,7 +22,7 @@ namespace TravelingSalesmanProblem.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append($"Fitness = {FitnessValue}:");
+            sb.Append($"Fitness = {Convert.ToInt32(FitnessValue)}:");
             foreach (int d in Vertices)
             {
                 sb.Append($"{d,3}");
