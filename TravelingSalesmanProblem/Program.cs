@@ -7,7 +7,7 @@ namespace TravelingSalesmanProblem
 {
     internal static class Program
     {
-        private const int ChromosomesNumber = 10;
+        private const int ChromosomesNumber = 5;
 
         private static void Main()
         {
@@ -15,6 +15,7 @@ namespace TravelingSalesmanProblem
 
             var random = new Random();
             var graph = new Graph();
+            graph.Randomize(random);
             var chromosomes = new List<Chromosome>();
             for (var i = 0; i < ChromosomesNumber; i++)
             {
@@ -44,7 +45,7 @@ namespace TravelingSalesmanProblem
                 {
                     sum += graph.Edges[c.Vertices[i]][c.Vertices[i + 1]];
                 }
-                return sum;
+                return sum + graph.Edges[c.Vertices[^1]][0];
             });
             var crossOverFunction = new Func<Chromosome, Chromosome, Chromosome>((father, mother) =>
             {
@@ -59,14 +60,15 @@ namespace TravelingSalesmanProblem
                     child.Vertices.Add(father.Vertices[i]);
                 }
                 
-                var motherIdx = 0;
+                // int motherIdx = mother.Vertices.Count - 1;
+                int motherIdx = 0;
                 for (var i = 0; i < crossOverPoint; i++)
                 {
-                    while (usedVertices.Contains(motherIdx))
+                    while (usedVertices.Contains(mother.Vertices[motherIdx]))
                     {
                         motherIdx++;
                     }
-                    child.Vertices.Add(mother.Vertices[i]);
+                    child.Vertices.Add(mother.Vertices[motherIdx]);
                     motherIdx++;
                 }
 
@@ -85,7 +87,7 @@ namespace TravelingSalesmanProblem
             #endregion
 
             var algorithm = new Algorithm<Chromosome>();
-            var result = algorithm.Run(chromosomes, fitnessFunction, crossOverFunction, mutationFunction);
+            Chromosome result = algorithm.Run(chromosomes, fitnessFunction, crossOverFunction, mutationFunction);
 
             Console.WriteLine(result);
         }

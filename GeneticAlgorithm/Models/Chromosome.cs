@@ -5,11 +5,11 @@ using System.Text;
 
 namespace GeneticAlgorithm.Models
 {
-    public class Chromosome: IChromosome
+    public class Chromosome : IChromosome
     {
+        #region IChromosome
+
         public double FitnessValue { get; set; }
-        
-        public List<int> X { get; set; } = new List<int>();
 
         public void EnsureBoundaries()
         {
@@ -24,6 +24,10 @@ namespace GeneticAlgorithm.Models
             }
         }
 
+        #endregion
+
+        public List<int> X { get; set; } = new List<int>();
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -32,6 +36,7 @@ namespace GeneticAlgorithm.Models
             {
                 sb.Append($"{d,12}");
             }
+
             return sb.ToString();
         }
     }

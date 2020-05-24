@@ -16,7 +16,7 @@ namespace TravelingSalesmanProblem.Models
 
         #endregion
 
-        public List<int> Vertices { get; } = new List<int>();
+        public List<int> Vertices { get; set; } = new List<int>();
 
         public override string ToString()
         {

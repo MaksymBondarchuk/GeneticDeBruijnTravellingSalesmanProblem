@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using GeneticAlgorithm.Models;
+using GeneticAlgorithm.Models.Extensions;
 
 namespace GeneticAlgorithm
 {
     public class Algorithm<TChromosome>
         where TChromosome : class, IChromosome
     {
-        private const int NoChangesIterationsToStop = 100;
+        private const int NoChangesIterationsToStop = 1000;
         private const int TournamentSize = 2;
-        private const double MutationsFraction = 0.1;
+        private const double MutationsFraction = 0.2;
 
         private readonly Random _random = new Random();
 
@@ -22,10 +23,11 @@ namespace GeneticAlgorithm
         {
             var stopCounter = 0;
             var lastBestFitness = double.MaxValue;
-            TChromosome best;
-            
+            var bestFitness = double.MaxValue;
+            TChromosome best = chromosomes.First().Clone();
+
             var iter = 0;
-            while (iter < 100000 && stopCounter < NoChangesIterationsToStop)
+            while (iter < 1000000 && stopCounter < NoChangesIterationsToStop)
             {
                 #region Fitness
 
@@ -37,7 +39,7 @@ namespace GeneticAlgorithm
                 }
 
                 avg /= chromosomes.Count;
-                Console.WriteLine($"{iter,4} {avg,-12:0.0000000000}");
+                Console.WriteLine($"{iter,4} {avg,-12:0.0000000000} {bestFitness}");
 
                 #endregion
 
@@ -72,10 +74,15 @@ namespace GeneticAlgorithm
                 {
                     chromosome.FitnessValue = fitnessFunction(chromosome);
                 }
-                
-                best = chromosomes.OrderBy(p => p.FitnessValue).First();
-                
-                if (Math.Abs(lastBestFitness - best.FitnessValue) < 0.00000001)
+
+                var potentialBest = chromosomes.OrderBy(p => p.FitnessValue).First();
+                if (potentialBest.FitnessValue < bestFitness)
+                {
+                    best = potentialBest.Clone();
+                    bestFitness = potentialBest.FitnessValue;
+                }
+
+                if (Math.Abs(lastBestFitness - bestFitness) < 0.00000001)
                 {
                     stopCounter++;
                 }
@@ -83,14 +90,13 @@ namespace GeneticAlgorithm
                 {
                     stopCounter = 0;
                 }
-                
-                lastBestFitness = best.FitnessValue;
+
+                lastBestFitness = bestFitness;
                 iter++;
 
                 #endregion
             }
 
-            best = chromosomes.OrderBy(p => p.FitnessValue).First();
             return best;
         }
 
@@ -110,8 +116,7 @@ namespace GeneticAlgorithm
 
             return tournamentParticipants.OrderBy(p => p.FitnessValue).First();
         }
-        
-        #endregion
 
+        #endregion
     }
 }

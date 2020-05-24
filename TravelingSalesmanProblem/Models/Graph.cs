@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace TravelingSalesmanProblem.Models
 {
@@ -40,5 +40,19 @@ namespace TravelingSalesmanProblem.Models
             new List<int>{+I, +I, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +5, +5, +5, +I, +I, +5},    // 25
             new List<int>{+I, +I, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +I, +I, +I, +5, +5, +I},    // 26
         };
+
+        public void Randomize(Random random)
+        {
+            for (var i = 0; i < Edges.Count; i++)
+            {
+                for (var j = 0; j < Edges[i].Count; j++)
+                {
+                    if (Edges[i][j] == 5)
+                    {
+                        Edges[i][j] = random.Next(1000);
+                    }
+                }
+            }
+        }
     }
 }
