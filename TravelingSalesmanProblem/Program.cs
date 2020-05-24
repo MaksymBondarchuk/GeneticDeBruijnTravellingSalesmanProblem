@@ -7,7 +7,7 @@ namespace TravelingSalesmanProblem
 {
     internal static class Program
     {
-        private const int ChromosomesNumber = 100;
+        private const int ChromosomesNumber = 10;
 
         private static void Main()
         {

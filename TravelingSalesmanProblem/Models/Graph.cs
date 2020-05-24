@@ -49,7 +49,7 @@ namespace TravelingSalesmanProblem.Models
                 {
                     if (Edges[i][j] == 5)
                     {
-                        Edges[i][j] = random.Next(1000);
+                        Edges[i][j] = random.Next(1, 1000);
                     }
                 }
             }
