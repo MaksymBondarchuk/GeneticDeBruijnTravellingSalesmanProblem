@@ -24,6 +24,7 @@ namespace GeneticAlgorithm
             var stopCounter = 0;
             var lastBestFitness = double.MaxValue;
             var bestFitness = double.MaxValue;
+            var lastUpdateOn = 0;
             TChromosome best = chromosomes.First().Clone();
 
             var iter = 0;
@@ -80,6 +81,7 @@ namespace GeneticAlgorithm
                 {
                     best = potentialBest.Clone();
                     bestFitness = potentialBest.FitnessValue;
+                    lastUpdateOn = iter;
                 }
 
                 if (Math.Abs(lastBestFitness - bestFitness) < 0.00000001)
@@ -97,6 +99,7 @@ namespace GeneticAlgorithm
                 #endregion
             }
 
+            Console.WriteLine($"Last update on {lastUpdateOn}");
             return best;
         }
 
