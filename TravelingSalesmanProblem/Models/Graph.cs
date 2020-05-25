@@ -10,8 +10,8 @@ namespace TravelingSalesmanProblem.Models
         
         public List<List<int>> Edges { get; } = new List<List<int>>
         {
-            // new List<int>{+I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I},
-            // new List<int>{+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26},
+            //           {+I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I},
+            //           {+0, +1, +2, +3, +4, +5, +6, +7, +8, +9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26},
 
             new List<int>{+I, +5, +5, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +I, +I, +I, +I, +I},    // 0
             new List<int>{+5, +I, +I, +5, +5, +5, +I, +I, +I, +5, +I, +I, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +I, +I, +I, +I, +I},    // 1
@@ -40,6 +40,20 @@ namespace TravelingSalesmanProblem.Models
             new List<int>{+I, +I, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +I, +I, +I, +I, +I, +5, +5, +5, +5, +I, +I, +1, +I, +I, +5},    // 24
             new List<int>{+I, +I, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +5, +5, +5, +I, +I, +5},    // 25
             new List<int>{+I, +I, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +I, +I, +I, +I, +I, +5, +I, +I, +I, +I, +I, +I, +5, +5, +I},    // 26
+            
+            // new List<int>{+1, +1, +1, +2, +3, +4},    // 0
+            // new List<int>{+5, +4, +1, +5, +5, +5},    // 1
+            // new List<int>{+5, +2, +3, +1, +4, +2},    // 2
+            // new List<int>{+1, +2, +1, +5, +1, +3},    // 3
+            // new List<int>{+2, +5, +3, +1, +4, +1},    // 4
+            // new List<int>{+1, +1, +2, +3, +4, +1},    // 5
+            
+            // new List<int>{+5, +5, +I, +1, +5, +5},    // 0
+            // new List<int>{+5, +5, +5, +5, +1, +5},    // 1
+            // new List<int>{+5, +5, +5, +4, +5, +1},    // 2
+            // new List<int>{+5, +1, +5, +5, +I, +5},    // 3
+            // new List<int>{+I, +5, +1, +5, +5, +5},    // 4
+            // new List<int>{+1, +5, +5, +5, +5, +I},    // 5
         };
 
         public void Randomize(Random random)
