@@ -63,9 +63,10 @@ namespace TravelingSalesmanProblem
 			#endregion
 
 			var algorithm = new Algorithm<Chromosome>();
-			Chromosome result = algorithm.Run(chromosomes, fitnessFunction, CrossOverFunction.Random, mutationFunction, RunOptions.Interactive);
+			AlgorithmResult<Chromosome> result = algorithm.Run(chromosomes, fitnessFunction, CrossOverFunction.Random, mutationFunction, RunOptions.Interactive);
 
-			Console.WriteLine(result);
+			Console.WriteLine(result.Result);
+			Console.WriteLine(result.LastImprovementOn);
 		}
 	}
 }

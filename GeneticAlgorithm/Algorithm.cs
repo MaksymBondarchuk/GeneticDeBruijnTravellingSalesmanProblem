@@ -15,7 +15,7 @@ namespace GeneticAlgorithm
 
 		private readonly Random _random = new Random();
 
-		public TChromosome Run(
+		public AlgorithmResult<TChromosome> Run(
 			List<TChromosome> chromosomes,
 			Func<TChromosome, double> fitnessFunction,
 			Func<TChromosome, TChromosome, TChromosome> crossOverFunction,
@@ -107,7 +107,12 @@ namespace GeneticAlgorithm
 			{
 				Console.WriteLine($"Last update on {lastUpdateOn}");
 			}
-			return best;
+			
+			return new AlgorithmResult<TChromosome>
+			{
+				LastImprovementOn = lastUpdateOn,
+				Result = best
+			};
 		}
 
 		#region Tournament
