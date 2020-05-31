@@ -16,8 +16,31 @@ namespace TravelingSalesmanProblem
 			#region Initialize
 
 			var random = new Random();
-			var graph = new Graph();
+
+			var generator = new DeBruijnGraphGenerator(3);
+
+			var graph = generator.Generate();
+			for (var i = 0; i < graph.Edges.Count; i++)
+			{
+				for (var j = 0; j < graph.Edges[i].Count; j++)
+				{
+					if (graph.Edges[i][j] == Graph.Infinity)
+					{
+						Console.Write("I");
+					}
+					else
+					{
+						Console.Write(graph.Edges[i][j]);
+					}
+				}
+
+				Console.WriteLine();
+			}
+
+			return;
+			// var graph = new Graph();
 			graph.Randomize(random);
+
 			var chromosomes = new List<Chromosome>();
 			for (var i = 0; i < ChromosomesNumber; i++)
 			{
