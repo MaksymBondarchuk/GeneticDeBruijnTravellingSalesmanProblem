@@ -17,7 +17,7 @@ namespace TravelingSalesmanProblem
 
 			var random = new Random();
 
-			var generator = new DeBruijnGraphGenerator(3);
+			var generator = new DeBruijnGraphGenerator(2);
 
 			var graph = generator.Generate();
 			for (var i = 0; i < graph.Edges.Count; i++)
@@ -36,6 +36,7 @@ namespace TravelingSalesmanProblem
 
 				Console.WriteLine();
 			}
+			Console.WriteLine(graph.Degree);
 
 			// return;
 			// var graph = new Graph();

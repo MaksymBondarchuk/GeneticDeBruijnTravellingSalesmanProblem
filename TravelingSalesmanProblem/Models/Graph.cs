@@ -8,6 +8,8 @@ namespace TravelingSalesmanProblem.Models
 		public const int Infinity = 1000000;
 		public const int I = Infinity;
 
+		public double Degree { get; set; }
+		
 		public List<List<int>> Edges { get; } = new List<List<int>>
 		{
 			//            {+I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I, +I},

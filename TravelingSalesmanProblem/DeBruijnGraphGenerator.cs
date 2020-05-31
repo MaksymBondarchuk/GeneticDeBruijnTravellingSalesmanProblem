@@ -59,6 +59,7 @@ namespace TravelingSalesmanProblem
 				}
 			}
 
+			graph.Degree = GraphHelper.CalculateAverageGraphDegree(graph.Edges);
 			return graph;
 		}
 
