@@ -21,7 +21,7 @@ namespace TravelingSalesmanProblem
 
 			var verticesNumber = Convert.ToInt32(Math.Pow(3, _bitness));
 			var deBruijnVertices = new List<DeBruijnVertex>(verticesNumber);
-			AddDeBruijnVertex(deBruijnVertices, "000");
+			AddDeBruijnVertex(deBruijnVertices, new string('0', _bitness));
 
 			#endregion
 

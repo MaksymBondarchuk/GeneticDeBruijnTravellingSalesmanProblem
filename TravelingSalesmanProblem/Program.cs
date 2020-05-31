@@ -37,9 +37,9 @@ namespace TravelingSalesmanProblem
 				Console.WriteLine();
 			}
 
-			return;
+			// return;
 			// var graph = new Graph();
-			graph.Randomize(random);
+			// graph.Randomize(random);
 
 			var chromosomes = new List<Chromosome>();
 			for (var i = 0; i < ChromosomesNumber; i++)
