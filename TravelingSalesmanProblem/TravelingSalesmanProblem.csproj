@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\GeneticAlgorithm.Models\GeneticAlgorithm.Models.csproj" />
-      <ProjectReference Include="..\GeneticAlgorithm\GeneticAlgorithm.csproj" />
+        <ProjectReference Include="..\GeneticAlgorithm.Models\GeneticAlgorithm.Models.csproj" />
+        <ProjectReference Include="..\GeneticAlgorithm\GeneticAlgorithm.csproj" />
     </ItemGroup>
 
 </Project>

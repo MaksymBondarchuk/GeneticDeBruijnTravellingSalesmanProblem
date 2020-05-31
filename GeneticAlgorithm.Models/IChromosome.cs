@@ -1,9 +1,9 @@
 ﻿namespace GeneticAlgorithm.Models
 {
-    public interface IChromosome
-    {
-        double FitnessValue { get; set; }
+	public interface IChromosome
+	{
+		double FitnessValue { get; set; }
 
-        void EnsureBoundaries();
-    }
+		void EnsureBoundaries();
+	}
 }

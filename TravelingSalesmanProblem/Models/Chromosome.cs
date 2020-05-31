@@ -5,30 +5,30 @@ using GeneticAlgorithm.Models;
 
 namespace TravelingSalesmanProblem.Models
 {
-    public class Chromosome : IChromosome
-    {
-        #region IChromosome
+	public class Chromosome : IChromosome
+	{
+		#region IChromosome
 
-        public double FitnessValue { get; set; }
+		public double FitnessValue { get; set; }
 
-        public void EnsureBoundaries()
-        {
-        }
+		public void EnsureBoundaries()
+		{
+		}
 
-        #endregion
+		#endregion
 
-        public List<int> Vertices { get; set; } = new List<int>();
+		public List<int> Vertices { get; set; } = new List<int>();
 
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append($"Fitness = {Convert.ToInt32(FitnessValue)}:");
-            foreach (int d in Vertices)
-            {
-                sb.Append($"{d,3}");
-            }
+		public override string ToString()
+		{
+			var sb = new StringBuilder();
+			sb.Append($"Fitness = {Convert.ToInt32(FitnessValue)}:");
+			foreach (int d in Vertices)
+			{
+				sb.Append($"{d,3}");
+			}
 
-            return sb.ToString();
-        }
-    }
+			return sb.ToString();
+		}
+	}
 }

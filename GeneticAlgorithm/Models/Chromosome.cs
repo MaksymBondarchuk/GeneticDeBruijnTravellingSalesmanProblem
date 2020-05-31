@@ -5,39 +5,39 @@ using System.Text;
 
 namespace GeneticAlgorithm.Models
 {
-    public class Chromosome : IChromosome
-    {
-        #region IChromosome
+	public class Chromosome : IChromosome
+	{
+		#region IChromosome
 
-        public double FitnessValue { get; set; }
+		public double FitnessValue { get; set; }
 
-        public void EnsureBoundaries()
-        {
-            for (var d = 0; d < X.Count; d++)
-            {
-                X[d] = Math.Max(X[d], 0);
-                X[d] = Math.Min(X[d], 30);
-                if (X[d] < 0)
-                {
-                    Debugger.Break();
-                }
-            }
-        }
+		public void EnsureBoundaries()
+		{
+			for (var d = 0; d < X.Count; d++)
+			{
+				X[d] = Math.Max(X[d], 0);
+				X[d] = Math.Min(X[d], 30);
+				if (X[d] < 0)
+				{
+					Debugger.Break();
+				}
+			}
+		}
 
-        #endregion
+		#endregion
 
-        public List<int> X { get; set; } = new List<int>();
+		public List<int> X { get; set; } = new List<int>();
 
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append($"{FitnessValue}");
-            foreach (int d in X)
-            {
-                sb.Append($"{d,12}");
-            }
+		public override string ToString()
+		{
+			var sb = new StringBuilder();
+			sb.Append($"{FitnessValue}");
+			foreach (int d in X)
+			{
+				sb.Append($"{d,12}");
+			}
 
-            return sb.ToString();
-        }
-    }
+			return sb.ToString();
+		}
+	}
 }
