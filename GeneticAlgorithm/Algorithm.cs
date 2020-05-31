@@ -19,7 +19,8 @@ namespace GeneticAlgorithm
 			List<TChromosome> chromosomes,
 			Func<TChromosome, double> fitnessFunction,
 			Func<TChromosome, TChromosome, TChromosome> crossOverFunction,
-			Func<TChromosome, TChromosome> mutationFunction)
+			Func<TChromosome, TChromosome> mutationFunction,
+			RunOptions runOptions)
 		{
 			var stopCounter = 0;
 			var lastBestFitness = double.MaxValue;
@@ -40,7 +41,10 @@ namespace GeneticAlgorithm
 				}
 
 				avg /= chromosomes.Count;
-				Console.WriteLine($"{iter,4} {avg,-12:0.0000000000} {bestFitness}");
+				if (runOptions == RunOptions.Interactive)
+				{
+					Console.WriteLine($"{iter,4} {avg,-12:0.0000000000} {bestFitness}");
+				}
 
 				#endregion
 
@@ -99,7 +103,10 @@ namespace GeneticAlgorithm
 				#endregion
 			}
 
-			Console.WriteLine($"Last update on {lastUpdateOn}");
+			if (runOptions == RunOptions.Interactive)
+			{
+				Console.WriteLine($"Last update on {lastUpdateOn}");
+			}
 			return best;
 		}
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using GeneticAlgorithm;
+using GeneticAlgorithm.Models;
 using TravelingSalesmanProblem.Models;
+using Chromosome = TravelingSalesmanProblem.Models.Chromosome;
 
 namespace TravelingSalesmanProblem
 {
@@ -61,7 +63,7 @@ namespace TravelingSalesmanProblem
 			#endregion
 
 			var algorithm = new Algorithm<Chromosome>();
-			Chromosome result = algorithm.Run(chromosomes, fitnessFunction, CrossOverFunction.Random, mutationFunction);
+			Chromosome result = algorithm.Run(chromosomes, fitnessFunction, CrossOverFunction.Random, mutationFunction, RunOptions.Interactive);
 
 			Console.WriteLine(result);
 		}

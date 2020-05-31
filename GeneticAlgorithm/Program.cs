@@ -65,7 +65,7 @@ namespace GeneticAlgorithm
 			#endregion
 
 			var algorithm = new Algorithm<Chromosome>();
-			var result = algorithm.Run(chromosomes, fitnessFunction, crossOverFunction, mutationFunction);
+			var result = algorithm.Run(chromosomes, fitnessFunction, crossOverFunction, mutationFunction, RunOptions.Interactive);
 
 			Console.WriteLine(result);
 			Console.WriteLine(fitnessFunction(result));
