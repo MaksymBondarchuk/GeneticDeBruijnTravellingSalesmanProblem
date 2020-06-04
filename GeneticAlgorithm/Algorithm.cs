@@ -13,7 +13,12 @@ namespace GeneticAlgorithm
 		private const int TournamentSize = 2;
 		private const double MutationsFraction = 0.2;
 
-		private readonly Random _random = new Random();
+		private readonly Random _random;
+
+		public Algorithm(Random random)
+		{
+			_random = random;
+		}
 
 		public AlgorithmResult<TChromosome> Run(
 			List<TChromosome> chromosomes,

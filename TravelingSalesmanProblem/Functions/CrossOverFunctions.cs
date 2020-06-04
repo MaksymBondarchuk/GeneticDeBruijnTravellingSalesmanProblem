@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using TravelingSalesmanProblem.Models;
 
-namespace TravelingSalesmanProblem
+namespace TravelingSalesmanProblem.Functions
 {
-	public static class CrossOverFunction
+	public static class CrossOverFunctions
 	{
 		public static Func<Chromosome, Chromosome, Chromosome> Order { get; } = (father, mother) =>
 		{
@@ -73,8 +72,6 @@ namespace TravelingSalesmanProblem
 				parent2 = tmp;
 			}
 
-			Debugger.Break();
-
 			return child;
 		};
 
@@ -94,11 +91,6 @@ namespace TravelingSalesmanProblem
 			{
 				int lastDuplicateIdx = child.Vertices.LastIndexOf(duplicates[i]);
 				child.Vertices[lastDuplicateIdx] = unusedVertices[i];
-			}
-
-			if (child.Vertices.Where(v => child.Vertices.IndexOf(v) != child.Vertices.LastIndexOf(v)).Distinct().ToList().Any())
-			{
-				Debugger.Break();
 			}
 
 			return child;

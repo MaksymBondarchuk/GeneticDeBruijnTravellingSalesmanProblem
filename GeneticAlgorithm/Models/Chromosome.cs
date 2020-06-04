@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 
 namespace GeneticAlgorithm.Models
@@ -17,10 +16,6 @@ namespace GeneticAlgorithm.Models
 			{
 				X[d] = Math.Max(X[d], 0);
 				X[d] = Math.Min(X[d], 30);
-				if (X[d] < 0)
-				{
-					Debugger.Break();
-				}
 			}
 		}
 

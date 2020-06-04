@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using GeneticAlgorithm;
 using GeneticAlgorithm.Models;
+using TravelingSalesmanProblem.Functions;
+using TravelingSalesmanProblem.Generators;
 using TravelingSalesmanProblem.Models;
 using Chromosome = TravelingSalesmanProblem.Models.Chromosome;
 
@@ -17,7 +19,7 @@ namespace TravelingSalesmanProblem
 
 			var random = new Random();
 
-			var generator = new DeBruijnGraphGenerator(2);
+			var generator = new DeBruijnGraphGenerator(2, 3);
 
 			var graph = generator.Generate();
 			for (var i = 0; i < graph.Edges.Count; i++)
@@ -33,14 +35,15 @@ namespace TravelingSalesmanProblem
 						Console.Write(graph.Edges[i][j]);
 					}
 				}
-
+			
 				Console.WriteLine();
 			}
+			Console.WriteLine(graph.Edges.Count);
 			Console.WriteLine(graph.Degree);
 
 			// return;
 			// var graph = new Graph();
-			// graph.Randomize(random);
+			graph.Randomize(random);
 
 			var chromosomes = new List<Chromosome>();
 			for (var i = 0; i < ChromosomesNumber; i++)
@@ -86,8 +89,8 @@ namespace TravelingSalesmanProblem
 
 			#endregion
 
-			var algorithm = new Algorithm<Chromosome>();
-			AlgorithmResult<Chromosome> result = algorithm.Run(chromosomes, fitnessFunction, CrossOverFunction.Random, mutationFunction, RunOptions.Interactive);
+			var algorithm = new Algorithm<Chromosome>(random);
+			AlgorithmResult<Chromosome> result = algorithm.Run(chromosomes, fitnessFunction, CrossOverFunctions.Cycle, mutationFunction, RunOptions.Interactive);
 
 			Console.WriteLine(result.Result);
 			Console.WriteLine(result.LastImprovementOn);
